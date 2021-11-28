@@ -204,6 +204,57 @@ $curPage = $APPLICATION->GetCurPage(true);
 				<h1 id="pagetitle"><?$APPLICATION->ShowTitle(false);?></h1>
 			<?endif?>
 			<!--endregion-->
+
+			<?if($APPLICATION->GetCurPage(false) === '/personal/cart/'):?>
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="margin-bottom: 10px;">
+					Множественные добавление
+				</button>
+
+				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+					<div class="modal-dialog modal-lg">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h4 class="modal-title" id="myModalLabel">Множественные добавление товаров по XML_ID</h4>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+
+							<form action="//<?=$_SERVER["SERVER_NAME"]?><?=$_SERVER["REQUEST_URI"]?>" method="POST" class="form-multiple">
+								<div class="modal-body">
+									<table class="table">
+										<thead>
+										<tr>
+											<th scope="col">XML_ID</th>
+											<th scope="col">Имя</th>
+											<th scope="col">Размер</th>
+											<th scope="col">Цена</th>
+											<th scope="col"></th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td scope="row">
+												<input type="text" name="xml_id[]">
+											</td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><button type="button" class="btn btn-success btn-sm add-goods">добавить</button></td>
+										</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+									<button type="submit" class="btn btn-primary">Добавить</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			<?endif;?>
+
 		</div>
 	</header>
 
