@@ -1,4 +1,7 @@
 <?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
+<?php
+use Bitrix\Main\Page\Asset;
+?>
 				</div><!--end .bx-content -->
 
 				<!-- region Sidebar -->
@@ -220,6 +223,12 @@
 	</div>
 </div> <!-- //bx-wrapper -->
 
+<?php
+/**
+ * custom js file
+ */
+Asset::getInstance()->addJs(SITE_TEMPLATE_PATH . "/js/custom.js");
+?>
 
 <script>
 	BX.ready(function(){
