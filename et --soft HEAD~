@@ -1,0 +1,1399 @@
+[33mcommit 20f2f92ade438507218b76f8cd1c1d97c93f52bd[m[33m ([m[1;36mHEAD -> [m[1;32mroot[m[33m, [m[1;31morigin/main[m[33m, [m[1;32mmain[m[33m)[m
+Author: ZibrovOleg <zibroff@inbox.ru>
+Date:   Sun Nov 28 15:22:00 2021 +0300
+
+    add local
+
+[1mdiff --git a/local/php_interface/includes/functions.php b/local/php_interface/includes/functions.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..8bb03a8[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/includes/functions.php[m
+[36m@@ -0,0 +1,21 @@[m
+[32m+[m[32m<?php[m
+[32m+[m[32m/*[m
+[32m+[m[32m * functions.php[m
+[32m+[m[32m */[m
+[32m+[m
+[32m+[m[32m/**[m
+[32m+[m[32m * @param mixed $dump[m
+[32m+[m[32m * @param bool $die[m
+[32m+[m[32m * @param bool $all[m
+[32m+[m[32m *[m
+[32m+[m[32m * @return mixed[m
+[32m+[m[32m */[m
+[32m+[m[32mfunction dump($dump, bool $die = false, bool $all = false)[m[41m [m
+[32m+[m[32m{[m
+[32m+[m	[32mglobal $USER;[m
+[32m+[m	[32mif ($USER->IsAdmin() || $all === true)[m
+[32m+[m		[32mecho '<pre>',var_dump($dump),'</pre>';[m
+[32m+[m
+[32m+[m	[32mif ($die === true) die();[m
+[32m+[m[32m}[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/init.php b/local/php_interface/init.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..cc91cd5[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/init.php[m
+[36m@@ -0,0 +1,12 @@[m
+[32m+[m[32m<?php[m
+[32m+[m
+[32m+[m[32m# include -> local/php_interface/init.php[m
+[32m+[m
+[32m+[m[32muse Bitrix\Main\Loader;[m
+[32m+[m
+[32m+[m[32mLoader::includeModule('iblock');[m
+[32m+[m[32mLoader::includeModule('catalog');[m
+[32m+[m[32mLoader::includeModule('sale');[m
+[32m+[m
+[32m+[m[32mif (file_exists($_SERVER['DOCUMENT_ROOT']."/local/php_interface/includes/functions.php"))[m
+[32m+[m	[32minclude_once($_SERVER['DOCUMENT_ROOT']."/local/php_interface/includes/functions.php");[m
+[1mdiff --git a/local/php_interface/templates/main/.styles.php b/local/php_interface/templates/main/.styles.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..b94f9d7[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/.styles.php[m
+[36m@@ -0,0 +1,3 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32mreturn false;[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/colors.css b/local/php_interface/templates/main/colors.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..52c7641[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/colors.css[m
+[36m@@ -0,0 +1,50 @@[m
+[32m+[m[32m@media (max-width: 767px) {[m
+[32m+[m	[32mbody.bx-theme-green .bx-logo { background: #33b111; }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mbody.bx-background-gradient {[m
+[32m+[m	[32mbackground: rgb(245, 250, 253);[m
+[32m+[m	[32mbackground: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZmFmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);[m
+[32m+[m	[32mbackground: -moz-linear-gradient(top, rgba(245, 250, 253, 1) 0%, rgba(255, 255, 255, 1) 100%);[m
+[32m+[m	[32mbackground: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(245, 250, 253, 1)), color-stop(100%, rgba(255, 255, 255, 1)));[m
+[32m+[m	[32mbackground: -webkit-linear-gradient(top, rgba(245, 250, 253, 1) 0%, rgba(255, 255, 255, 1) 100%);[m
+[32m+[m	[32mbackground: -o-linear-gradient(top, rgba(245, 250, 253, 1) 0%, rgba(255, 255, 255, 1) 100%);[m
+[32m+[m	[32mbackground: -ms-linear-gradient(top, rgba(245, 250, 253, 1) 0%, rgba(255, 255, 255, 1) 100%);[m
+[32m+[m	[32mbackground: linear-gradient(to bottom, rgba(245, 250, 253, 1) 0%, rgba(255, 255, 255, 1) 100%);[m
+[32m+[m	[32mbackground-attachment: fixed;[m
+[32m+[m	[32mfilter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5fafd', endColorstr='#ffffff', GradientType=0);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-logo-text small { color: #33b111; }[m
+[32m+[m
+[32m+[m[32m/* news.list.sidebar */[m
+[32m+[m[32mbody.bx-theme-green .bx-s-info-titleicon { background: #33b111; }[m
+[32m+[m
+[32m+[m[32m/*ABOUT*/[m
+[32m+[m[32ma.bxd-block:hover { border-color: #28a906; }[m
+[32m+[m
+[32m+[m[32m.bxd-icon { border: 1px solid #28a906; }[m
+[32m+[m
+[32m+[m[32ma.bxd-block:hover .bxd-icon { background: #28a906; }[m
+[32m+[m
+[32m+[m[32ma.bxd-block:hover .bxd-icon .fa { color: #fff; }[m
+[32m+[m
+[32m+[m[32m/* BTN */[m
+[32m+[m[32m.bx-theme-green .btn.btn-default {[m
+[32m+[m	[32moutline: none;[m
+[32m+[m	[32mborder-color: #3bc915;[m
+[32m+[m	[32mbackground-color: #3bc915;[m
+[32m+[m	[32mcolor: #fff;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-theme-green .btn.btn-default:hover {[m
+[32m+[m	[32moutline: none;[m
+[32m+[m	[32mborder-color: #3bc915;[m
+[32m+[m	[32mbackground-color: #3bc915;[m
+[32m+[m	[32mcolor: #fff;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-theme-green .btn.btn-default:active {[m
+[32m+[m	[32moutline: none;[m
+[32m+[m	[32mbox-shadow: inset 0 3px 5px rgba(0, 0, 0, .125);[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/colors.min.css b/local/php_interface/templates/main/colors.min.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..2e54cd0[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/colors.min.css[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m@media(max-width:767px){body.bx-theme-green .bx-logo{background:#33b111}}body.bx-background-gradient{background:#f5fafd;background:url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y1ZmFmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);background:-moz-linear-gradient(top,rgba(245,250,253,1) 0,rgba(255,255,255,1) 100%);background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,rgba(245,250,253,1)),color-stop(100%,rgba(255,255,255,1)));background:-webkit-linear-gradient(top,rgba(245,250,253,1) 0,rgba(255,255,255,1) 100%);background:-o-linear-gradient(top,rgba(245,250,253,1) 0,rgba(255,255,255,1) 100%);background:-ms-linear-gradient(top,rgba(245,250,253,1) 0,rgba(255,255,255,1) 100%);background:linear-gradient(to bottom,rgba(245,250,253,1) 0,rgba(255,255,255,1) 100%);background-attachment:fixed;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5fafd',endColorstr='#ffffff',GradientType=0)}.bx-logo-text small{color:#33b111}body.bx-theme-green .bx-s-info-titleicon{background:#33b111}a.bxd-block:hover{border-color:#28a906}.bxd-icon{border:1px solid #28a906}a.bxd-block:hover .bxd-icon{background:#28a906}a.bxd-block:hover .bxd-icon .fa{color:#fff}.bx-theme-green .btn.btn-default{outline:0;border-color:#3bc915;background-color:#3bc915;color:#fff}.bx-theme-green .btn.btn-default:hover{outline:0;border-color:#3bc915;background-color:#3bc915;color:#fff}.bx-theme-green .btn.btn-default:active{outline:0;box-shadow:inset 0 3px 5px rgba(0,0,0,.125)}[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/description.php b/local/php_interface/templates/main/description.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..cabf516[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/description.php[m
+[36m@@ -0,0 +1,5 @@[m
+[32m+[m[32m<?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();[m
+[32m+[m[32m$arTemplate = Array([m
+[32m+[m	[32m"NAME"=>'Самсон',[m
+[32m+[m	[32m"DESCRIPTION" => "Тестовое задание"[m
+[32m+[m[32m);?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/footer.php b/local/php_interface/templates/main/footer.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..24f0508[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/footer.php[m
+[36m@@ -0,0 +1,244 @@[m
+[32m+[m[32m<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>[m
+[32m+[m				[32m</div><!--end .bx-content -->[m
+[32m+[m
+[32m+[m				[32m<!-- region Sidebar -->[m
+[32m+[m				[32m<?if (!$needSidebar):?>[m
+[32m+[m					[32m<div class="sidebar col-md-3 col-sm-4">[m
+[32m+[m						[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:main.include",[m
+[32m+[m							[32m"",[m
+[32m+[m							[32mArray([m
+[32m+[m								[32m"AREA_FILE_SHOW" => "sect",[m
+[32m+[m								[32m"AREA_FILE_SUFFIX" => "sidebar",[m
+[32m+[m								[32m"AREA_FILE_RECURSIVE" => "Y",[m
+[32m+[m								[32m"EDIT_MODE" => "html",[m
+[32m+[m							[32m),[m
+[32m+[m							[32mfalse,[m
+[32m+[m							[32mArray('HIDE_ICONS' => 'Y')[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m<?endif?>[m
+[32m+[m				[32m<!--endregion -->[m
+[32m+[m
+[32m+[m			[32m</div><!--end row-->[m
+[32m+[m			[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m				[32m"bitrix:main.include",[m
+[32m+[m				[32m"",[m
+[32m+[m				[32mArray([m
+[32m+[m					[32m"AREA_FILE_SHOW" => "sect",[m
+[32m+[m					[32m"AREA_FILE_SUFFIX" => "bottom",[m
+[32m+[m					[32m"AREA_FILE_RECURSIVE" => "N",[m
+[32m+[m					[32m"EDIT_MODE" => "html",[m
+[32m+[m				[32m),[m
+[32m+[m				[32mfalse,[m
+[32m+[m				[32mArray('HIDE_ICONS' => 'Y')[m
+[32m+[m			[32m);?>[m
+[32m+[m		[32m</div><!--end .container.bx-content-section-->[m
+[32m+[m	[32m</div><!--end .workarea-->[m
+[32m+[m
+[32m+[m	[32m<footer class="bx-footer">[m
+[32m+[m		[32m<div class="bx-footer-section bx-footer-bg">[m
+[32m+[m			[32m<div class="container">[m
+[32m+[m				[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m					[32m"bitrix:main.include",[m
+[32m+[m					[32m"",[m
+[32m+[m					[32mArray([m
+[32m+[m						[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m						[32m"PATH" => SITE_DIR."include/socnet_footer.php",[m
+[32m+[m						[32m"AREA_FILE_RECURSIVE" => "N",[m
+[32m+[m						[32m"EDIT_MODE" => "html",[m
+[32m+[m					[32m),[m
+[32m+[m					[32mfalse,[m
+[32m+[m					[32mArray('HIDE_ICONS' => 'Y')[m
+[32m+[m				[32m);?>[m
+[32m+[m			[32m</div>[m
+[32m+[m		[32m</div>[m
+[32m+[m		[32m<div class="bx-footer-section py-5 bg-dark">[m
+[32m+[m			[32m<div class="container">[m
+[32m+[m				[32m<div class="row">[m
+[32m+[m					[32m<div class="col-sm-6 col-lg-3 order-lg-2 order-1 mb-4 mb-lg-0">[m
+[32m+[m						[32m<h4 class="bx-block-title text-light">[m
+[32m+[m							[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m								[32m"bitrix:main.include",[m
+[32m+[m								[32m"",[m
+[32m+[m								[32marray([m
+[32m+[m									[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m									[32m"PATH" => SITE_DIR."include/about_title.php"[m
+[32m+[m								[32m),[m
+[32m+[m								[32mfalse[m
+[32m+[m							[32m);?>[m
+[32m+[m						[32m</h4>[m
+[32m+[m						[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:menu",[m
+[32m+[m							[32m"bottom_menu",[m
+[32m+[m							[32marray([m
+[32m+[m								[32m"ROOT_MENU_TYPE" => "bottom",[m
+[32m+[m								[32m"MAX_LEVEL" => "1",[m
+[32m+[m								[32m"MENU_CACHE_TYPE" => "A",[m
+[32m+[m								[32m"CACHE_SELECTED_ITEMS" => "N",[m
+[32m+[m								[32m"MENU_CACHE_TIME" => "36000000",[m
+[32m+[m								[32m"MENU_CACHE_USE_GROUPS" => "Y",[m
+[32m+[m								[32m"MENU_CACHE_GET_VARS" => array(),[m
+[32m+[m							[32m),[m
+[32m+[m							[32mfalse[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</div>[m
+[32m+[m					[32m<div class="col-sm-6 col-lg-3 order-lg-3 order-2 mb-4 mb-lg-0">[m
+[32m+[m						[32m<h4 class="bx-block-title text-light">[m
+[32m+[m							[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m								[32m"bitrix:main.include",[m
+[32m+[m								[32m"",[m
+[32m+[m								[32marray([m
+[32m+[m									[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m									[32m"PATH" => SITE_DIR."include/catalog_title.php"[m
+[32m+[m								[32m),[m
+[32m+[m								[32mfalse[m
+[32m+[m							[32m);?>[m
+[32m+[m						[32m</h4>[m
+[32m+[m						[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:menu",[m
+[32m+[m							[32m"bottom_menu",[m
+[32m+[m							[32marray([m
+[32m+[m								[32m"ROOT_MENU_TYPE" => "left",[m
+[32m+[m								[32m"MENU_CACHE_TYPE" => "A",[m
+[32m+[m								[32m"MENU_CACHE_TIME" => "36000000",[m
+[32m+[m								[32m"MENU_CACHE_USE_GROUPS" => "Y",[m
+[32m+[m								[32m"MENU_CACHE_GET_VARS" => array(),[m
+[32m+[m								[32m"CACHE_SELECTED_ITEMS" => "N",[m
+[32m+[m								[32m"MAX_LEVEL" => "1",[m
+[32m+[m								[32m"USE_EXT" => "Y",[m
+[32m+[m								[32m"DELAY" => "N",[m
+[32m+[m								[32m"ALLOW_MULTI_SELECT" => "N"[m
+[32m+[m							[32m),[m
+[32m+[m							[32mfalse[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</div>[m
+[32m+[m					[32m<div class="col-sm-6 col-lg-3 order-lg-4 order-3">[m
+[32m+[m						[32m<div style="padding: 20px;background:#eaeaeb">[m
+[32m+[m							[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m								[32m"bitrix:main.include",[m
+[32m+[m								[32m"",[m
+[32m+[m								[32marray([m
+[32m+[m									[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m									[32m"PATH" => SITE_DIR."include/sender.php",[m
+[32m+[m									[32m"AREA_FILE_RECURSIVE" => "N",[m
+[32m+[m									[32m"EDIT_MODE" => "html",[m
+[32m+[m								[32m),[m
+[32m+[m								[32mfalse,[m
+[32m+[m								[32marray('HIDE_ICONS' => 'Y')[m
+[32m+[m							[32m);?>[m
+[32m+[m						[32m</div>[m
+[32m+[m						[32m<div id="bx-composite-banner" style="padding-top: 20px"></div>[m
+[32m+[m					[32m</div>[m
+[32m+[m					[32m<div class="col-sm-6 col-lg-3 order-lg-1 order-4">[m
+[32m+[m						[32m<div class="mb-3">[m
+[32m+[m							[32m<a class="bx-footer-logo" href="<?=SITE_DIR?>">[m
+[32m+[m								[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m									[32m"bitrix:main.include",[m
+[32m+[m									[32m"",[m
+[32m+[m									[32marray([m
+[32m+[m										[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m										[32m"PATH" => SITE_DIR."include/company_logo_mobile.php"[m
+[32m+[m									[32m),[m
+[32m+[m								[32mfalse[m
+[32m+[m								[32m);?>[m
+[32m+[m							[32m</a>[m
+[32m+[m						[32m</div>[m
+[32m+[m						[32m<div class="mb-3 d-flex align-items-center">[m
+[32m+[m							[32m<i class="fa fa-phone pr-3 text-white" style="font-size: 25px;"></i>[m
+[32m+[m							[32m<span class="text-white">[m
+[32m+[m								[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m									[32m"bitrix:main.include",[m
+[32m+[m									[32m"", array([m
+[32m+[m										[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m										[32m"PATH" => SITE_DIR."include/telephone.php"[m
+[32m+[m									[32m),[m
+[32m+[m									[32mfalse[m
+[32m+[m								[32m);?>[m
+[32m+[m							[32m</span>[m
+[32m+[m						[32m</div>[m
+[32m+[m						[32m<div class="mb-3 text-white">[m
+[32m+[m							[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m								[32m"bitrix:main.include",[m
+[32m+[m								[32m"",[m
+[32m+[m								[32marray([m
+[32m+[m									[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m									[32m"PATH" => SITE_DIR."include/schedule.php"[m
+[32m+[m								[32m),[m
+[32m+[m								[32mfalse[m
+[32m+[m							[32m);?>[m
+[32m+[m						[32m</div>[m
+[32m+[m						[32m<div class="mb-3 text-white">[m
+[32m+[m							[32m<? $APPLICATION->IncludeComponent([m
+[32m+[m								[32m"bitrix:main.include",[m
+[32m+[m								[32m"",[m
+[32m+[m								[32marray([m
+[32m+[m									[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m									[32m"PATH" => SITE_DIR."include/personal.php"[m
+[32m+[m								[32m),[m
+[32m+[m								[32mfalse[m
+[32m+[m							[32m);?>[m
+[32m+[m						[32m</div>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</div>[m
+[32m+[m			[32m</div>[m
+[32m+[m		[32m</div>[m
+[32m+[m		[32m<div class="bx-footer-section py-2 bg-secondary">[m
+[32m+[m				[32m<div class="container">[m
+[32m+[m					[32m<div class="row">[m
+[32m+[m						[32m<div class="col-sm-6 bx-up">[m
+[32m+[m							[32m<a href="javascript:void(0)" data-role="eshopUpButton" class="text-white"><i class="fa fa-caret-up"></i> <?=GetMessage("FOOTER_UP_BUTTON")?></a>[m
+[32m+[m						[32m</div>[m
+[32m+[m						[32m<div class="col-sm-6 text-white text-right">[m
+[32m+[m							[32m<? $APPLICATION->IncludeComponent("bitrix:main.include", "", array([m
+[32m+[m								[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m								[32m"PATH" => SITE_DIR."include/copyright.php"[m
+[32m+[m							[32m), false);?>[m
+[32m+[m						[32m</div>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</div>[m
+[32m+[m			[32m</div>[m
+[32m+[m	[32m</footer>[m
+[32m+[m	[32m<div class="col d-sm-none">[m
+[32m+[m		[32m<?$APPLICATION->IncludeComponent("bitrix:sale.basket.basket.line", "bootstrap_v4", array([m
+[32m+[m				[32m"PATH_TO_BASKET" => SITE_DIR."personal/cart/",[m
+[32m+[m				[32m"PATH_TO_PERSONAL" => SITE_DIR."personal/",[m
+[32m+[m				[32m"SHOW_PERSONAL_LINK" => "N",[m
+[32m+[m				[32m"SHOW_NUM_PRODUCTS" => "Y",[m
+[32m+[m				[32m"SHOW_TOTAL_PRICE" => "Y",[m
+[32m+[m				[32m"SHOW_PRODUCTS" => "N",[m
+[32m+[m				[32m"POSITION_FIXED" =>"Y",[m
+[32m+[m				[32m"POSITION_HORIZONTAL" => "center",[m
+[32m+[m				[32m"POSITION_VERTICAL" => "bottom",[m
+[32m+[m				[32m"SHOW_AUTHOR" => "Y",[m
+[32m+[m				[32m"PATH_TO_REGISTER" => SITE_DIR."login/",[m
+[32m+[m				[32m"PATH_TO_PROFILE" => SITE_DIR."personal/"[m
+[32m+[m			[32m),[m
+[32m+[m			[32mfalse,[m
+[32m+[m			[32marray()[m
+[32m+[m		[32m);?>[m
+[32m+[m	[32m</div>[m
+[32m+[m[32m</div> <!-- //bx-wrapper -->[m
+[32m+[m
+[32m+[m
+[32m+[m[32m<script>[m
+[32m+[m	[32mBX.ready(function(){[m
+[32m+[m		[32mvar upButton = document.querySelector('[data-role="eshopUpButton"]');[m
+[32m+[m		[32mBX.bind(upButton, "click", function(){[m
+[32m+[m			[32mvar windowScroll = BX.GetWindowScrollPos();[m
+[32m+[m			[32m(new BX.easing({[m
+[32m+[m				[32mduration : 500,[m
+[32m+[m				[32mstart : { scroll : windowScroll.scrollTop },[m
+[32m+[m				[32mfinish : { scroll : 0 },[m
+[32m+[m				[32mtransition : BX.easing.makeEaseOut(BX.easing.transitions.quart),[m
+[32m+[m				[32mstep : function(state){[m
+[32m+[m					[32mwindow.scrollTo(0, state.scroll);[m
+[32m+[m				[32m},[m
+[32m+[m				[32mcomplete: function() {[m
+[32m+[m				[32m}[m
+[32m+[m			[32m})).animate();[m
+[32m+[m		[32m})[m
+[32m+[m	[32m});[m
+[32m+[m[32m</script>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/header.php b/local/php_interface/templates/main/header.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..f6d8472[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/header.php[m
+[36m@@ -0,0 +1,214 @@[m
+[32m+[m[32m<?if(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();[m
+[32m+[m[32mIncludeTemplateLangFile($_SERVER["DOCUMENT_ROOT"]."/bitrix/templates/".SITE_TEMPLATE_ID."/header.php");[m
+[32m+[m[32mCJSCore::Init(array("fx"));[m
+[32m+[m
+[32m+[m[32m\Bitrix\Main\UI\Extension::load("ui.bootstrap4");[m
+[32m+[m
+[32m+[m[32mif (isset($_GET["theme"]) && in_array($_GET["theme"], array("blue", "green", "yellow", "red")))[m
+[32m+[m[32m{[m
+[32m+[m	[32mCOption::SetOptionString("main", "wizard_eshop_bootstrap_theme_id", $_GET["theme"], false, SITE_ID);[m
+[32m+[m[32m}[m
+[32m+[m[32m$theme = COption::GetOptionString("main", "wizard_eshop_bootstrap_theme_id", "green", SITE_ID);[m
+[32m+[m
+[32m+[m[32m$curPage = $APPLICATION->GetCurPage(true);[m
+[32m+[m
+[32m+[m[32m?><!DOCTYPE html>[m
+[32m+[m[32m<html xml:lang="<?=LANGUAGE_ID?>" lang="<?=LANGUAGE_ID?>">[m
+[32m+[m[32m<head>[m
+[32m+[m	[32m<title><?$APPLICATION->ShowTitle()?></title>[m
+[32m+[m	[32m<meta http-equiv="X-UA-Compatible" content="IE=edge" />[m
+[32m+[m	[32m<meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">[m
+[32m+[m	[32m<link rel="shortcut icon" type="image/x-icon" href="<?=SITE_DIR?>favicon.ico" />[m
+[32m+[m	[32m<? $APPLICATION->ShowHead(); ?>[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body class="bx-background-image bx-theme-<?=$theme?>" <?$APPLICATION->ShowProperty("backgroundImage");?>>[m
+[32m+[m[32m<div id="panel"><? $APPLICATION->ShowPanel(); ?></div>[m
+[32m+[m[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m	[32m"bitrix:eshop.banner",[m
+[32m+[m	[32m"",[m
+[32m+[m	[32marray()[m
+[32m+[m[32m);?>[m
+[32m+[m[32m<div class="bx-wrapper" id="bx_eshop_wrap">[m
+[32m+[m	[32m<header class="bx-header">[m
+[32m+[m		[32m<div class="bx-header-section container">[m
+[32m+[m			[32m<!--region bx-header-->[m
+[32m+[m			[32m<div class="row pt-0 pt-md-3 mb-3 align-items-center" style="position: relative;">[m
+[32m+[m				[32m<div class="d-block d-md-none bx-menu-button-mobile" data-role='bx-menu-button-mobile-position'></div>[m
+[32m+[m				[32m<div class="col-12 col-md-auto bx-header-logo">[m
+[32m+[m					[32m<a class="bx-logo-block d-none d-md-block" href="<?=SITE_DIR?>">[m
+[32m+[m						[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:main.include",[m
+[32m+[m							[32m"",[m
+[32m+[m							[32marray([m
+[32m+[m								[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m								[32m"PATH" => SITE_DIR."include/company_logo.php"),[m
+[32m+[m							[32mfalse[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</a>[m
+[32m+[m					[32m<a class="bx-logo-block d-block d-md-none text-center" href="<?=SITE_DIR?>">[m
+[32m+[m						[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:main.include",[m
+[32m+[m							[32m"",[m
+[32m+[m							[32marray([m
+[32m+[m								[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m								[32m"PATH" => SITE_DIR."include/company_logo_mobile.php"[m
+[32m+[m							[32m),[m
+[32m+[m							[32mfalse[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</a>[m
+[32m+[m				[32m</div>[m
+[32m+[m
+[32m+[m				[32m<div class="col-auto d-none d-md-block bx-header-personal">[m
+[32m+[m					[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m						[32m"bitrix:sale.basket.basket.line",[m
+[32m+[m						[32m"bootstrap_v4",[m
+[32m+[m						[32marray([m
+[32m+[m							[32m"PATH_TO_BASKET" => SITE_DIR."personal/cart/",[m
+[32m+[m							[32m"PATH_TO_PERSONAL" => SITE_DIR."personal/",[m
+[32m+[m							[32m"SHOW_PERSONAL_LINK" => "N",[m
+[32m+[m							[32m"SHOW_NUM_PRODUCTS" => "Y",[m
+[32m+[m							[32m"SHOW_TOTAL_PRICE" => "Y",[m
+[32m+[m							[32m"SHOW_PRODUCTS" => "N",[m
+[32m+[m							[32m"POSITION_FIXED" =>"N",[m
+[32m+[m							[32m"SHOW_AUTHOR" => "Y",[m
+[32m+[m							[32m"PATH_TO_REGISTER" => SITE_DIR."login/",[m
+[32m+[m							[32m"PATH_TO_PROFILE" => SITE_DIR."personal/"[m
+[32m+[m						[32m),[m
+[32m+[m						[32mfalse,[m
+[32m+[m						[32marray()[m
+[32m+[m					[32m);?>[m
+[32m+[m				[32m</div>[m
+[32m+[m
+[32m+[m				[32m<div class="col bx-header-contact">[m
+[32m+[m					[32m<div class="d-flex align-items-center justify-content-between justify-content-md-center flex-column flex-sm-row flex-md-column flex-lg-row">[m
+[32m+[m						[32m<div class="p-lg-3 p-1">[m
+[32m+[m							[32m<div class="bx-header-phone-block">[m
+[32m+[m								[32m<i class="bx-header-phone-icon"></i>[m
+[32m+[m								[32m<span class="bx-header-phone-number">[m
+[32m+[m									[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m										[32m"bitrix:main.include",[m
+[32m+[m										[32m"",[m
+[32m+[m										[32marray([m
+[32m+[m											[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m											[32m"PATH" => SITE_DIR."include/telephone.php"[m
+[32m+[m										[32m),[m
+[32m+[m										[32mfalse[m
+[32m+[m									[32m);?>[m
+[32m+[m								[32m</span>[m
+[32m+[m							[32m</div>[m
+[32m+[m						[32m</div>[m
+[32m+[m						[32m<div class="p-lg-3 p-1">[m
+[32m+[m							[32m<div class="bx-header-worktime">[m
+[32m+[m								[32m<div class="bx-worktime-title"><?=GetMessage('HEADER_WORK_TIME'); ?></div>[m
+[32m+[m								[32m<div class="bx-worktime-schedule">[m
+[32m+[m									[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m										[32m"bitrix:main.include",[m
+[32m+[m										[32m"",[m
+[32m+[m										[32marray([m
+[32m+[m											[32m"AREA_FILE_SHOW" => "file",[m
+[32m+[m											[32m"PATH" => SITE_DIR."include/schedule.php"[m
+[32m+[m										[32m),[m
+[32m+[m										[32mfalse[m
+[32m+[m									[32m);?>[m
+[32m+[m								[32m</div>[m
+[32m+[m							[32m</div>[m
+[32m+[m						[32m</div>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</div>[m
+[32m+[m			[32m</div>[m
+[32m+[m			[32m<!--endregion-->[m
+[32m+[m
+[32m+[m			[32m<!--region menu-->[m
+[32m+[m			[32m<div class="row mb-4 d-none d-md-block">[m
+[32m+[m				[32m<div class="col">[m
+[32m+[m					[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m						[32m"bitrix:menu",[m
+[32m+[m						[32m"bootstrap_v4",[m
+[32m+[m						[32marray([m
+[32m+[m							[32m"ROOT_MENU_TYPE" => "left",[m
+[32m+[m							[32m"MENU_CACHE_TYPE" => "A",[m
+[32m+[m							[32m"MENU_CACHE_TIME" => "36000000",[m
+[32m+[m							[32m"MENU_CACHE_USE_GROUPS" => "Y",[m
+[32m+[m							[32m"MENU_THEME" => "site",[m
+[32m+[m							[32m"CACHE_SELECTED_ITEMS" => "N",[m
+[32m+[m							[32m"MENU_CACHE_GET_VARS" => array(),[m
+[32m+[m							[32m"MAX_LEVEL" => "3",[m
+[32m+[m							[32m"CHILD_MENU_TYPE" => "left",[m
+[32m+[m							[32m"USE_EXT" => "Y",[m
+[32m+[m							[32m"DELAY" => "N",[m
+[32m+[m							[32m"ALLOW_MULTI_SELECT" => "N",[m
+[32m+[m							[32m"COMPONENT_TEMPLATE" => "bootstrap_v4"[m
+[32m+[m						[32m),[m
+[32m+[m						[32mfalse[m
+[32m+[m					[32m);?>[m
+[32m+[m				[32m</div>[m
+[32m+[m			[32m</div>[m
+[32m+[m			[32m<!--endregion-->[m
+[32m+[m
+[32m+[m			[32m<!--region search.title -->[m
+[32m+[m			[32m<?if ($curPage != SITE_DIR."index.php"):?>[m
+[32m+[m				[32m<div class="row mb-4">[m
+[32m+[m					[32m<div class="col">[m
+[32m+[m						[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:search.title",[m
+[32m+[m							[32m"bootstrap_v4",[m
+[32m+[m							[32marray([m
+[32m+[m								[32m"NUM_CATEGORIES" => "1",[m
+[32m+[m								[32m"TOP_COUNT" => "5",[m
+[32m+[m								[32m"CHECK_DATES" => "N",[m
+[32m+[m								[32m"SHOW_OTHERS" => "N",[m
+[32m+[m								[32m"PAGE" => SITE_DIR."catalog/",[m
+[32m+[m								[32m"CATEGORY_0_TITLE" => GetMessage("SEARCH_GOODS") ,[m
+[32m+[m								[32m"CATEGORY_0" => array([m
+[32m+[m									[32m0 => "iblock_catalog",[m
+[32m+[m								[32m),[m
+[32m+[m								[32m"CATEGORY_0_iblock_catalog" => array([m
+[32m+[m									[32m0 => "all",[m
+[32m+[m								[32m),[m
+[32m+[m								[32m"CATEGORY_OTHERS_TITLE" => GetMessage("SEARCH_OTHER"),[m
+[32m+[m								[32m"SHOW_INPUT" => "Y",[m
+[32m+[m								[32m"INPUT_ID" => "title-search-input",[m
+[32m+[m								[32m"CONTAINER_ID" => "search",[m
+[32m+[m								[32m"PRICE_CODE" => array([m
+[32m+[m									[32m0 => "BASE",[m
+[32m+[m								[32m),[m
+[32m+[m								[32m"SHOW_PREVIEW" => "Y",[m
+[32m+[m								[32m"PREVIEW_WIDTH" => "75",[m
+[32m+[m								[32m"PREVIEW_HEIGHT" => "75",[m
+[32m+[m								[32m"CONVERT_CURRENCY" => "Y"[m
+[32m+[m							[32m),[m
+[32m+[m							[32mfalse[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</div>[m
+[32m+[m			[32m<?endif?>[m
+[32m+[m			[32m<!--endregion-->[m
+[32m+[m
+[32m+[m			[32m<!--region breadcrumb-->[m
+[32m+[m			[32m<?if ($curPage != SITE_DIR."index.php"):?>[m
+[32m+[m				[32m<div class="row mb-4">[m
+[32m+[m					[32m<div class="col" id="navigation">[m
+[32m+[m						[32m<?$APPLICATION->IncludeComponent([m
+[32m+[m							[32m"bitrix:breadcrumb",[m
+[32m+[m							[32m"universal",[m
+[32m+[m							[32marray([m
+[32m+[m								[32m"START_FROM" => "0",[m
+[32m+[m								[32m"PATH" => "",[m
+[32m+[m								[32m"SITE_ID" => "-"[m
+[32m+[m							[32m),[m
+[32m+[m							[32mfalse,[m
+[32m+[m							[32mArray('HIDE_ICONS' => 'Y')[m
+[32m+[m						[32m);?>[m
+[32m+[m					[32m</div>[m
+[32m+[m				[32m</div>[m
+[32m+[m				[32m<h1 id="pagetitle"><?$APPLICATION->ShowTitle(false);?></h1>[m
+[32m+[m			[32m<?endif?>[m
+[32m+[m			[32m<!--endregion-->[m
+[32m+[m		[32m</div>[m
+[32m+[m	[32m</header>[m
+[32m+[m
+[32m+[m	[32m<div class="workarea">[m
+[32m+[m		[32m<div class="container bx-content-section">[m
+[32m+[m			[32m<div class="row">[m
+[32m+[m			[32m<?$needSidebar = preg_match("~^".SITE_DIR."(catalog|personal\/cart|personal\/order\/make)/~", $curPage);?>[m
+[32m+[m				[32m<div class="bx-content <?=($needSidebar ? "col" : "col-md-9 col-sm-8")?>">[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/lang/en/description.php b/local/php_interface/templates/main/lang/en/description.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..044b81d[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/lang/en/description.php[m
+[36m@@ -0,0 +1,3 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32m$MESS["CSST_TEMPLATE_NAME"] = "e-Store template, new rubber layout";[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/lang/en/header.php b/local/php_interface/templates/main/lang/en/header.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..365bde8[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/lang/en/header.php[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32m$MESS["FOOTER_COMPANY_ABOUT"] = "About Us";[m
+[32m+[m[32m$MESS["FOOTER_COMPANY_PHONE"] = "Contact Us";[m
+[32m+[m[32m$MESS["FOOTER_UP_BUTTON"] = "Up";[m
+[32m+[m[32m$MESS["HEADER_WORK_TIME"] = "Business hours:";[m
+[32m+[m[32m$MESS["SEARCH_GOODS"] = "Products";[m
+[32m+[m[32m$MESS["SEARCH_OTHER"] = "Other";[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/lang/ru/.styles.php b/local/php_interface/templates/main/lang/ru/.styles.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..6cf3abc[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/lang/ru/.styles.php[m
+[36m@@ -0,0 +1,45 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32m$MESS["STYLES_LETTER"] = "Буквица";[m
+[32m+[m[32m$MESS["STYLES_BXE_QUOTE"] = "Обычная цитата";[m
+[32m+[m[32m$MESS["STYLES_BLOCKQUOTE"] = "Цитируемый абзац";[m
+[32m+[m[32m$MESS["STYLES_LEAD"] = "Цитируемый абзац, голубой";[m
+[32m+[m[32m$MESS["STYLES_BLUE"] = "Синий";[m
+[32m+[m[32m$MESS["STYLES_GREEN"] = "Зеленый";[m
+[32m+[m[32m$MESS["STYLES_AZURE"] = "Голубой";[m
+[32m+[m[32m$MESS["STYLES_YELLOW"] = "Желтый";[m
+[32m+[m[32m$MESS["STYLES_PINK"] = "Розовый";[m
+[32m+[m[32m$MESS["STYLES_BLUE_BG"] = "Синяя подложка";[m
+[32m+[m[32m$MESS["STYLES_GREEN_BG"] = "Зеленая подложка";[m
+[32m+[m[32m$MESS["STYLES_AZURE_BG"] = "Голубая подложка";[m
+[32m+[m[32m$MESS["STYLES_YELLOW_BG"] = "Желтая подложка";[m
+[32m+[m[32m$MESS["STYLES_PINK_BG"] = "Розовая подложка";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_GREEN"] = "Блок зеленый";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_BLUE"] = "Блок синий";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_YELLOW"] = "Блок желтый";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_RED"] = "Блок красный";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_GRAY"] = "Блок серый";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_BROWN"] = "Блок коричневый";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_ICON_GREEN"] = "Блок зеленый с иконкой";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_ICON_BLUE"] = "Блок синий с иконкой";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_ICON_YELLOW"] = "Блок желтый с иконкой";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_ICON_RED"] = "Блок красный с иконкой";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_ICON_GRAY"] = "Блок серый с иконкой";[m
+[32m+[m[32m$MESS["STYLES_BLOCK_ICON_BROWN"] = "Блок коричневый с иконкой";[m
+[32m+[m[32m$MESS["STYLES_STANDART"] = "Стандартный";[m
+[32m+[m[32m$MESS["STYLES_STANDART_LIST"] = "Стандартный список";[m
+[32m+[m[32m$MESS["STYLES_LIST_CHECK_SQUARE"] = "Список \"флажок\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_CHECK"] = "Список \"птичка\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_MINUS"] = "Список \"минус\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_MAP_MARKER"] = "Список \"маркер карты\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_ROCKET"] = "Список \"ракета\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_PAW"] = "Список \"след\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_PLANE"] = "Список \"самолетик\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_CERTIFICATE"] = "Список \"печать\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_FLAG"] = "Список \"флаг\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_BOMB"] = "Список \"бомбочка\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_CLOSE"] = "Список \"крестик\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_STAR"] = "Список \"звезда\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_TIMES_CIRCLE"] = "Список \"крестик в круге\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_VIDEO"] = "Список \"видео\"";[m
+[32m+[m[32m$MESS["STYLES_LIST_HEART"] = "Список \"сердечко\"";[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/lang/ru/description.php b/local/php_interface/templates/main/lang/ru/description.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..269ae44[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/lang/ru/description.php[m
+[36m@@ -0,0 +1,3 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32m$MESS["CSST_TEMPLATE_NAME"] = "Адаптивный шаблон интернет-магазина";[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/lang/ru/header.php b/local/php_interface/templates/main/lang/ru/header.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..90f367d[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/lang/ru/header.php[m
+[36m@@ -0,0 +1,8 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32m$MESS["SEARCH_GOODS"] = "Товары";[m
+[32m+[m[32m$MESS["SEARCH_OTHER"] = "Прочее";[m
+[32m+[m[32m$MESS["FOOTER_COMPANY_ABOUT"] = "Подробнее о компании";[m
+[32m+[m[32m$MESS["FOOTER_COMPANY_PHONE"] = "Свяжитесь с нами";[m
+[32m+[m[32m$MESS["FOOTER_UP_BUTTON"] = "Наверх";[m
+[32m+[m[32m$MESS["HEADER_WORK_TIME"] = "Время работы:";[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/page_templates/bootstrap/lang/ru/template.php b/local/php_interface/templates/main/page_templates/bootstrap/lang/ru/template.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..a3fe6e3[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/page_templates/bootstrap/lang/ru/template.php[m
+[36m@@ -0,0 +1,13 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32m$MESS ['bt_wizard_name'] = "Шаблоны сеток страницы";[m
+[32m+[m[32m$MESS ['bt_wizard_title'] = "Раздел с шаблоном сетки";[m
+[32m+[m[32m$MESS ['BT_TYPE'] = "Выберите вариант шаблона сетки страницы";[m
+[32m+[m[32m$MESS ['BT_COL_1'] = "Одна колонка";[m
+[32m+[m[32m$MESS ['BT_COL_2_1'] = "Правое меню";[m
+[32m+[m[32m$MESS ['BT_COL_1_2'] = "Левое меню";[m
+[32m+[m[32m$MESS ['BT_COL_1_2_1'] = "Два меню";[m
+[32m+[m[32m$MESS ['BT_COL_1_1'] = "Две колонки";[m
+[32m+[m[32m$MESS ['BT_COL_1_1_1'] = "Три колонки";[m
+[32m+[m[32m$MESS ['BT_COL_5'] = "Главная";[m
+[32m+[m[32m$MESS ['BT_COL_4'] = "Мозаика";[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/page_templates/bootstrap/template.php b/local/php_interface/templates/main/page_templates/bootstrap/template.php[m
+[1mnew file mode 100644[m
+[1mindex 0000000..3c01a4d[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/page_templates/bootstrap/template.php[m
+[36m@@ -0,0 +1,165 @@[m
+[32m+[m[32m<?[m
+[32m+[m[32mif(!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true)[m
+[32m+[m	[32mdie();[m
+[32m+[m
+[32m+[m[32mCPageTemplate::IncludeLangFile(__FILE__);[m
+[32m+[m
+[32m+[m[32mclass CBootstrapPageTemplate[m
+[32m+[m[32m{[m
+[32m+[m	[32mfunction GetDescription()[m
+[32m+[m	[32m{[m
+[32m+[m		[32mreturn array([m
+[32m+[m			[32m"name" => GetMessage("bt_wizard_name"),[m
+[32m+[m			[32m"description" => GetMessage("bt_wizard_title"),[m
+[32m+[m			[32m"modules" => array("bitrix.eshop"),[m
+[32m+[m		[32m);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mfunction GetFormHtml()[m
+[32m+[m	[32m{[m
+[32m+[m		[32m$s = '[m
+[32m+[m[32m<tr class="section">[m
+[32m+[m	[32m<td colspan="4">'.GetMessage("BT_TYPE").'</td>[m
+[32m+[m[32m</tr>[m
+[32m+[m[32m';[m
+[32m+[m		[32m$s .= '[m
+[32m+[m[32m<tr>[m
+[32m+[m	[32m<td style="vertical-align: top; padding-top:10px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="1" id="BT_COL_1" checked>[m
+[32m+[m		[32m<label for="BT_COL_1">'.GetMessage("BT_COL_1").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_1.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m	[32m<td style="padding-top:10px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="2_1" id="BT_COL_2_1">[m
+[32m+[m		[32m<label for="BT_COL_2_1">'.GetMessage("BT_COL_2_1").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_2_1.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m	[32m<td style="padding-top:10px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="1_2" id="BT_COL_1_2">[m
+[32m+[m		[32m<label for="BT_COL_1_2">'.GetMessage("BT_COL_1_2").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_1_2.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m	[32m<td style="padding-top:10px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="1_2_1" id="BT_COL_1_2_1">[m
+[32m+[m		[32m<label for="BT_COL_1_2_1">'.GetMessage("BT_COL_1_2_1").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_1_2_1.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m[32m</tr>[m
+[32m+[m[32m<tr>[m
+[32m+[m	[32m<td style="padding-top:20px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="1_1" id="BT_COL_1_1">[m
+[32m+[m		[32m<label for="BT_COL_1_1">'.GetMessage("BT_COL_1_1").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_1_1.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m	[32m<td style="padding-top:20px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="1_1_1" id="BT_COL_1_1_1">[m
+[32m+[m		[32m<label for="BT_COL_1_1_1">'.GetMessage("BT_COL_1_1_1").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_1_1_1.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m	[32m<td style="padding-top:20px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="5" id="BT_COL_5">[m
+[32m+[m		[32m<label for="BT_COL_5">'.GetMessage("BT_COL_5").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_5.png" style="margin-top: 7px; padding-left: 17px;"/><br>[m
+[32m+[m	[32m</td>[m
+[32m+[m	[32m<td style="padding-top:20px">[m
+[32m+[m		[32m<input type="radio" name="BT_COL" value="4" id="BT_COL_4">[m
+[32m+[m		[32m<label for="BT_COL_4">'.GetMessage("BT_COL_4").'</label><br>[m
+[32m+[m		[32m<img src="/bitrix/images/bitrix.eshop/col_4.png" style="margin-top: 7px; padding-left: 17px;"/>[m
+[32m+[m	[32m</td>[m
+[32m+[m[32m</tr>[m
+[32m+[m[32m';[m
+[32m+[m		[32mreturn $s;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32mfunction GetContent($arParams)[m
+[32m+[m	[32m{[m
+[32m+[m		[32m$gridHtml = '[m
+[32m+[m[32m<div class="row">';[m
+[32m+[m
+[32m+[m		[32mif (isset($_POST['BT_COL']))[m
+[32m+[m		[32m{[m
+[32m+[m			[32mswitch ($_POST['BT_COL'])[m
+[32m+[m			[32m{[m
+[32m+[m				[32mcase '1':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-xs-12"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '2_1':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-8"></div>[m
+[32m+[m	[32m<div class="col-sm-4"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '1_2':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-4"></div>[m
+[32m+[m	[32m<div class="col-sm-8"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '1_2_1':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-3"></div>[m
+[32m+[m	[32m<div class="col-sm-6"></div>[m
+[32m+[m	[32m<div class="col-sm-3"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '1_1':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-6"></div>[m
+[32m+[m	[32m<div class="col-sm-6"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '1_1_1':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-4"></div>[m
+[32m+[m	[32m<div class="col-sm-4"></div>[m
+[32m+[m	[32m<div class="col-sm-4"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '5':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-8"></div>[m
+[32m+[m	[32m<div class="col-sm-4"></div>[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="row">[m
+[32m+[m	[32m<div class="col-xs-12"></div>[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="row">[m
+[32m+[m	[32m<div class="col-sm-8"></div>[m
+[32m+[m	[32m<div class="col-sm-4"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m				[32mcase '4':[m
+[32m+[m				[32m{[m
+[32m+[m					[32m$gridHtml.= '[m
+[32m+[m	[32m<div class="col-sm-8"></div>[m
+[32m+[m	[32m<div class="col-sm-4"></div>[m
+[32m+[m[32m</div>[m
+[32m+[m[32m<div class="row">[m
+[32m+[m	[32m<div class="col-xs-4"></div>[m
+[32m+[m	[32m<div class="col-xs-8"></div>';[m
+[32m+[m					[32mbreak;[m
+[32m+[m				[32m}[m
+[32m+[m			[32m}[m
+[32m+[m		[32m}[m
+[32m+[m		[32m$gridHtml.= '[m
+[32m+[m[32m</div>[m
+[32m+[m[32m';[m
+[32m+[m
+[32m+[m		[32m$s = '<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");?>';[m
+[32m+[m		[32m$s.= $gridHtml;[m
+[32m+[m		[32m$s.= '<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>';[m
+[32m+[m		[32mreturn $s;[m
+[32m+[m	[32m}[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m$pageTemplate = new CBootstrapPageTemplate;[m
+[32m+[m[32m?>[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/template_styles.css b/local/php_interface/templates/main/template_styles.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..c49de3f[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/template_styles.css[m
+[36m@@ -0,0 +1,373 @@[m
+[32m+[m[32m.bx-yellow,[m
+[32m+[m[32m.bx-theme-yellow {[m
+[32m+[m	[32m--primary: #f9a91d;[m
+[32m+[m	[32m--theme-color-primary: #f9a91d;[m
+[32m+[m	[32m--theme-color-second: #faba4a;[m
+[32m+[m	[32m--theme-color-light: #f0f0f0;[m
+[32m+[m	[32m--theme-b-link: #f9a91d;[m
+[32m+[m	[32m--theme-b-link-hover: #faba4a;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #f9a91d;[m
+[32m+[m	[32m--theme-b-bd-primary: #f9a91d;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(249, 169, 29, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #faba4a;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #daa53e;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #faba4a;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #daa53e;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #daa53e;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #b7853b;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-blue,[m
+[32m+[m[32m.bx-theme-blue {[m
+[32m+[m	[32m--primary: #0083d1;[m
+[32m+[m	[32m--theme-color-primary: #0083d1;[m
+[32m+[m	[32m--theme-color-second: #5ca6e4;[m
+[32m+[m	[32m--theme-color-light: #f0f6f8;[m
+[32m+[m	[32m--theme-b-link: #44b1c9;[m
+[32m+[m	[32m--theme-b-link-hover: #5cc3d1;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #0083d1;[m
+[32m+[m	[32m--theme-b-bd-primary: #0083d1;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(0, 131, 209, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #5ca6e4;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #5599d2;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #5ca6e4;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #5599d2;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #5599d2;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #4d8bbf;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-red,[m
+[32m+[m[32m.bx-theme-red {[m
+[32m+[m	[32m--primary: #e22b2b;[m
+[32m+[m	[32m--theme-color-primary: #e22b2b;[m
+[32m+[m	[32m--theme-color-second: #e95c5c;[m
+[32m+[m	[32m--theme-color-light: #f0f0f0;[m
+[32m+[m	[32m--theme-b-link: #e22b2b;[m
+[32m+[m	[32m--theme-b-link-hover: #e95c5c;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #e22b2b;[m
+[32m+[m	[32m--theme-b-bd-primary: #e22b2b;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(226, 43, 43, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #e95c5c;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #d05454;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #e95c5c;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #d05454;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #d05454;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #c04e4e;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-green,[m
+[32m+[m[32m.bx-theme-green {[m
+[32m+[m	[32m--primary: #63aa28;[m
+[32m+[m	[32m--theme-color-primary: #63aa28;[m
+[32m+[m	[32m--theme-color-second: #5b9f0b;[m
+[32m+[m	[32m--theme-color-light: #a8d95b;[m
+[32m+[m	[32m--theme-b-link: #44b1c9;[m
+[32m+[m	[32m--theme-b-link-hover: #5cc3d1;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #63aa28;[m
+[32m+[m	[32m--theme-b-bd-primary: #63aa28;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(99, 170, 40, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #5b9f0b;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #56940b;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #5b9f0b;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #56940b;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #56940b;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #497c09;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32mbody {[m
+[32m+[m	[32mbackground-attachment: fixed;[m
+[32m+[m	[32mbackground-size: cover;[m
+[32m+[m	[32mfont-family: "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m#pagetitle { margin-bottom: 35px; }[m
+[32m+[m
+[32m+[m[32mh1,h2,h3,h4,h5 {[m
+[32m+[m	[32mfont-family: "OpenSans-Regular", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[32m+[m	[32mfont-weight: normal;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-content-section,[m
+[32m+[m[32m.bx-header-section {[m
+[32m+[m	[32mpadding-bottom: 2px;[m
+[32m+[m	[32mbackground-color: rgba(255, 255, 255, .95);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-wrapper { }[m
+[32m+[m
+[32m+[m[32m/*region HEADER*/[m
+[32m+[m[32m.bx-header { }[m
+[32m+[m
+[32m+[m[32m.bx-header-section { }[m
+[32m+[m
+[32m+[m[32m.bx-header-logo { order: 1 }[m
+[32m+[m
+[32m+[m[32m.bx-header-personal { order: 3 }[m
+[32m+[m
+[32m+[m[32m.bx-header-contact { order: 2 }[m
+[32m+[m
+[32m+[m[32m/*region Logo*/[m
+[32m+[m[32m.bx-logo-block {[m
+[32m+[m	[32mdisplay: block;[m
+[32m+[m	[32mheight: 50px;[m
+[32m+[m	[32mborder-bottom: none;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-logo-block img {[m
+[32m+[m	[32mmax-height: 50px;[m
+[32m+[m	[32mwidth: auto;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (max-width: 767px) {[m
+[32m+[m	[32m.bx-logo-block img {[m
+[32m+[m		[32mmax-width: 100%;[m
+[32m+[m		[32mmax-height: 45px;[m
+[32m+[m		[32mwidth: auto;[m
+[32m+[m		[32mheight: auto;[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m.bx-header-logo {[m
+[32m+[m		[32mpadding: 5px 50px;[m
+[32m+[m		[32mheight: 55px;[m
+[32m+[m		[32mbackground-color: var(--theme-color-primary);[m
+[32m+[m	[32m}[m
+[32m+[m
+[32m+[m	[32m.bx-logo-block { height: auto; }[m
+[32m+[m
+[32m+[m	[32mbody.bx-theme-green .bx-store-logo { background: #33b111; }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/*endregion*/[m
+[32m+[m
+[32m+[m[32m/*region included Phone*/[m
+[32m+[m[32m.bx-header-phone-block {[m
+[32m+[m	[32mdisplay: flex;[m
+[32m+[m	[32malign-items: center;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-header-phone-number {[m
+[32m+[m	[32mcolor: #000;[m
+[32m+[m	[32mwhite-space: nowrap;[m
+[32m+[m	[32mfont: 700 21px/28px "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;[m
+[32m+[m	[32mtransition: 250ms linear all;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-header-phone-icon {[m
+[32m+[m	[32mdisplay: block;[m
+[32m+[m	[32mmargin-right: 10px;[m
+[32m+[m	[32mwidth: 26px;[m
+[32m+[m	[32mheight: 26px;[m
+[32m+[m	[32mbackground: no-repeat center url(images/phone.svg);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (max-width: 991px) {[m
+[32m+[m	[32m.bx-header-phone-number { font: 600 15px/18px "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif; }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/*endregion*/[m
+[32m+[m
+[32m+[m[32m/*region included Worktime*/[m
+[32m+[m[32m.bx-header-worktime {[m
+[32m+[m	[32mcolor: #000;[m
+[32m+[m	[32mfont: 600 16px/22px "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif;[m
+[32m+[m	[32mtransition: 250ms linear all;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-worktime-title {[m
+[32m+[m	[32mcolor: #adadad;[m
+[32m+[m	[32mfont: 12px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-worktime-schedule {[m
+[32m+[m	[32mcolor: #000;[m
+[32m+[m	[32mfont: 12px "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m@media (max-width: 991px) {[m
+[32m+[m	[32m.bx-header-worktime { font: 500 15px/18px "Open Sans", "Helvetica Neue", Arial, Helvetica, sans-serif; }[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/*endregion*/[m
+[32m+[m
+[32m+[m[32m/*endregion*/[m
+[32m+[m
+[32m+[m[32m.sidebar-block-title {[m
+[32m+[m	[32mcolor: #343434;[m
+[32m+[m	[32mtext-transform: uppercase;[m
+[32m+[m	[32mfont-weight: 600;[m
+[32m+[m	[32mfont-size: 14px;[m
+[32m+[m	[32mfont-family: "Open Sans", Arial, "Helvetica Neue", Helvetica, sans-serif;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/*region FOOTER*/[m
+[32m+[m[32m.bx-footer { }[m
+[32m+[m
+[32m+[m[32m.bx-footer-section { }[m
+[32m+[m
+[32m+[m[32m.bx-footer-section .bx-block-title { }[m
+[32m+[m
+[32m+[m[32m.bx-footer-bg { background-color: #1f496a; }[m
+[32m+[m
+[32m+[m[32m.bx-footer-logo {[m
+[32m+[m	[32mborder-bottom: none !important;[m
+[32m+[m	[32mtext-decoration: none !important;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-footer-logo img {[m
+[32m+[m	[32mmax-width: 100%;[m
+[32m+[m	[32mheight: auto;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m/*endregion*/[m
+[32m+[m
+[32m+[m[32m.bx-inclinkspersonal-item.bx-theme-blue:hover { background: #0083d1; }[m
+[32m+[m
+[32m+[m[32m.bx-theme-blue.bx-inclinkspersonal-selected { background: #3398d7; }[m
+[32m+[m
+[32m+[m[32m.bx-inclinkspersonal-item.bx-theme-black:hover { background: #303030; }[m
+[32m+[m
+[32m+[m[32m.bx-theme-black.bx-inclinkspersonal-selected { background: #484848; }[m
+[32m+[m
+[32m+[m[32m.bx-inclinkspersonal-item.bx-theme-green:hover { background: #44b1c9; }[m
+[32m+[m
+[32m+[m[32m.bx-theme-green.bx-inclinkspersonal-selected { background: #5cc3d1; }[m
+[32m+[m
+[32m+[m[32m.bx-inclinkspersonal-item.bx-theme-red:hover { background: #e63c3c; }[m
+[32m+[m
+[32m+[m[32m.bx-theme-red.bx-inclinkspersonal-selected { background: #e95c5c; }[m
+[32m+[m
+[32m+[m[32m.bx-inclinkspersonal-item.bx-theme-yellow:hover { background: #f4a52e; }[m
+[32m+[m
+[32m+[m[32m.bx-theme-yellow.bx-inclinkspersonal-selected { background: #fbb859; }[m
+[32m+[m
+[32m+[m[32m/*region Bootstrap modified*/[m
+[32m+[m[32m.btn-primary,[m
+[32m+[m[32m.list-group-item.active {[m
+[32m+[m	[32mborder-color: var(--theme-b-bd-primary);[m
+[32m+[m	[32mbackground-color: var(--theme-b-bg-primary);[m
+[32m+[m	[32mcolor: var(--theme-b-tx-primary);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.btn-primary:hover {[m
+[32m+[m	[32mborder-color: var(--theme-b-bd-primary-hover);[m
+[32m+[m	[32mbackground-color: var(--theme-b-bg-primary-hover);[m
+[32m+[m	[32mcolor: var(--theme-b-tx-primary-hover);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.btn-primary:focus,[m
+[32m+[m[32m.btn-primary.focus {[m
+[32m+[m	[32mbox-shadow: 0 0 0 0.2rem var(--theme-b-sd-primary);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.btn-primary.disabled,[m
+[32m+[m[32m.btn-primary:disabled {[m
+[32m+[m	[32mborder-color: var(--theme-b-bg-primary);[m
+[32m+[m	[32mbackground-color: var(--theme-b-bg-primary);[m
+[32m+[m	[32mcolor: var(--theme-b-tx-primary);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.btn-primary:not(:disabled):not(.disabled):active,[m
+[32m+[m[32m.btn-primary:not(:disabled):not(.disabled).active,[m
+[32m+[m[32m.show > .btn-primary.dropdown-toggle {[m
+[32m+[m	[32mborder-color: var(--theme-b-bd-primary-active);[m
+[32m+[m	[32mbackground-color: var(--theme-b-bg-primary-active);[m
+[32m+[m	[32mcolor: var(--theme-b-tx-primary-active);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.btn-primary:not(:disabled):not(.disabled):active:focus,[m
+[32m+[m[32m.btn-primary:not(:disabled):not(.disabled).active:focus,[m
+[32m+[m[32m.show > .btn-primary.dropdown-toggle:focus {[m
+[32m+[m	[32mbox-shadow: 0 0 0 0.2rem var(--theme-b-sd-primary);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.form-control:focus {[m
+[32m+[m	[32mborder-color: var(--theme-color-primary);[m
+[32m+[m	[32mbox-shadow: 0 0 0 0.2rem var(--theme-b-sd-primary);[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32ma,[m
+[32m+[m[32m.btn-link { color: var(--theme-b-link); }[m
+[32m+[m
+[32m+[m[32ma:hover,[m
+[32m+[m[32m.btn-link:hover { color: var(--theme-b-link-hover); }[m
+[32m+[m
+[32m+[m[32m.g-font-size-15 { font-size: 15px; }[m
+[32m+[m
+[32m+[m[32m.g-font-size-17 { font-size: 17px; }[m
+[32m+[m
+[32m+[m[32m.g-font-size-20 { font-size: 20px; }[m
+[32m+[m
+[32m+[m[32m.text-primary { color: var(--primary) !important }[m
+[32m+[m
+[32m+[m[32m.bg-primary { background: var(--primary) !important }[m
+[32m+[m
+[32m+[m[32m.border-primary { border-color: var(--primary) !important }[m
+[32m+[m
+[32m+[m[32m/*endregion*/[m
+[32m+[m
+[32m+[m[32m.bx-sidebar-block { }[m
+[32m+[m
+[32m+[m[32m.sidebar h2,[m
+[32m+[m[32m.sidebar h3,[m
+[32m+[m[32m.sidebar h4,[m
+[32m+[m[32m.sidebar h5 {[m
+[32m+[m	[32mtext-transform: uppercase;[m
+[32m+[m	[32mfont-size: 14px;[m
+[32m+[m	[32mfont-family: "OpenSans-SemiBold", "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar li {[m
+[32m+[m	[32mfont-size: 12px;[m
+[32m+[m	[32mfont-family: "OpenSans-SemiBold", "Helvetica Neue", Helvetica, Arial, sans-serif;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar-icon {[m
+[32m+[m	[32mwidth: 27px;[m
+[32m+[m	[32mheight: 27px;[m
+[32m+[m	[32mmargin-right: 5px;[m
+[32m+[m	[32mborder-radius:50%;[m
+[32m+[m	[32mbackground-color: var(--theme-color-primary);[m
+[32m+[m	[32mbackground-repeat: no-repeat;[m
+[32m+[m	[32mbackground-position: center;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar-icon-label {[m
+[32m+[m	[32mbackground-image:  url(images/label.svg);[m
+[32m+[m	[32mbackground-size: 19px auto;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar-icon-delivery {[m
+[32m+[m	[32mbackground-image: url(images/delivery.svg);[m
+[32m+[m	[32mbackground-size: 17px auto;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar-icon-sale {[m
+[32m+[m	[32mbackground-image: url(images/sale.svg);[m
+[32m+[m	[32mbackground-size: auto 17px ;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar-icon-self {[m
+[32m+[m	[32mbackground-image: url(images/self.svg);[m
+[32m+[m	[32mbackground-size: auto 17px ;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.sidebar-icon-phone {[m
+[32m+[m	[32mbackground-image: url(images/phone_white.svg);[m
+[32m+[m	[32mbackground-size: auto 21px ;[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/template_styles.min.css b/local/php_interface/templates/main/template_styles.min.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..674a5a3[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/template_styles.min.css[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m.bx-yellow,.bx-theme-yellow{--primary:#f9a91d;--theme-color-primary:#f9a91d;--theme-color-second:#faba4a;--theme-color-light:#f0f0f0;--theme-b-link:#f9a91d;--theme-b-link-hover:#faba4a;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#f9a91d;--theme-b-bd-primary:#f9a91d;--theme-b-sd-primary:rgba(249,169,29,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#faba4a;--theme-b-bd-primary-hover:#daa53e;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#faba4a;--theme-b-bd-primary-active:#daa53e;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#daa53e;--theme-b-bd-primary-disabled:#b7853b}.bx-blue,.bx-theme-blue{--primary:#0083d1;--theme-color-primary:#0083d1;--theme-color-second:#5ca6e4;--theme-color-light:#f0f6f8;--theme-b-link:#44b1c9;--theme-b-link-hover:#5cc3d1;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#0083d1;--theme-b-bd-primary:#0083d1;--theme-b-sd-primary:rgba(0,131,209,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#5ca6e4;--theme-b-bd-primary-hover:#5599d2;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#5ca6e4;--theme-b-bd-primary-active:#5599d2;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#5599d2;--theme-b-bd-primary-disabled:#4d8bbf}.bx-red,.bx-theme-red{--primary:#e22b2b;--theme-color-primary:#e22b2b;--theme-color-second:#e95c5c;--theme-color-light:#f0f0f0;--theme-b-link:#e22b2b;--theme-b-link-hover:#e95c5c;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#e22b2b;--theme-b-bd-primary:#e22b2b;--theme-b-sd-primary:rgba(226,43,43,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#e95c5c;--theme-b-bd-primary-hover:#d05454;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#e95c5c;--theme-b-bd-primary-active:#d05454;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#d05454;--theme-b-bd-primary-disabled:#c04e4e}.bx-green,.bx-theme-green{--primary:#63aa28;--theme-color-primary:#63aa28;--theme-color-second:#5b9f0b;--theme-color-light:#a8d95b;--theme-b-link:#44b1c9;--theme-b-link-hover:#5cc3d1;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#63aa28;--theme-b-bd-primary:#63aa28;--theme-b-sd-primary:rgba(99,170,40,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#5b9f0b;--theme-b-bd-primary-hover:#56940b;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#5b9f0b;--theme-b-bd-primary-active:#56940b;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#56940b;--theme-b-bd-primary-disabled:#497c09}body{background-attachment:fixed;background-size:cover;font-family:"Helvetica Neue",Helvetica,Arial,sans-serif}#pagetitle{margin-bottom:35px}h1,h2,h3,h4,h5{font-family:"OpenSans-Regular","Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif;font-weight:normal}.bx-content-section,.bx-header-section{padding-bottom:2px;background-color:rgba(255,255,255,.95)}.bx-header-logo{order:1}.bx-header-personal{order:3}.bx-header-contact{order:2}.bx-logo-block{display:block;height:50px;border-bottom:0}.bx-logo-block img{max-height:50px;width:auto}@media(max-width:767px){.bx-logo-block img{max-width:100%;max-height:45px;width:auto;height:auto}.bx-header-logo{padding:5px 50px;height:55px;background-color:var(--theme-color-primary)}.bx-logo-block{height:auto}body.bx-theme-green .bx-store-logo{background:#33b111}}.bx-header-phone-block{display:flex;align-items:center}.bx-header-phone-number{color:#000;white-space:nowrap;font:700 21px/28px "Open Sans","Helvetica Neue",Arial,Helvetica,sans-serif;transition:250ms linear all}.bx-header-phone-icon{display:block;margin-right:10px;width:26px;height:26px;background:no-repeat center url(images/phone.svg)}@media(max-width:991px){.bx-header-phone-number{font:600 15px/18px "Open Sans","Helvetica Neue",Arial,Helvetica,sans-serif}}.bx-header-worktime{color:#000;font:600 16px/22px "Open Sans","Helvetica Neue",Arial,Helvetica,sans-serif;transition:250ms linear all}.bx-worktime-title{color:#adadad;font:12px "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}.bx-worktime-schedule{color:#000;font:12px "Open Sans","Helvetica Neue",Helvetica,Arial,sans-serif}@media(max-width:991px){.bx-header-worktime{font:500 15px/18px "Open Sans","Helvetica Neue",Arial,Helvetica,sans-serif}}.sidebar-block-title{color:#343434;text-transform:uppercase;font-weight:600;font-size:14px;font-family:"Open Sans",Arial,"Helvetica Neue",Helvetica,sans-serif}.bx-footer-bg{background-color:#1f496a}.bx-footer-logo{border-bottom:none!important;text-decoration:none!important}.bx-footer-logo img{max-width:100%;height:auto}.bx-inclinkspersonal-item.bx-theme-blue:hover{background:#0083d1}.bx-theme-blue.bx-inclinkspersonal-selected{background:#3398d7}.bx-inclinkspersonal-item.bx-theme-black:hover{background:#303030}.bx-theme-black.bx-inclinkspersonal-selected{background:#484848}.bx-inclinkspersonal-item.bx-theme-green:hover{background:#44b1c9}.bx-theme-green.bx-inclinkspersonal-selected{background:#5cc3d1}.bx-inclinkspersonal-item.bx-theme-red:hover{background:#e63c3c}.bx-theme-red.bx-inclinkspersonal-selected{background:#e95c5c}.bx-inclinkspersonal-item.bx-theme-yellow:hover{background:#f4a52e}.bx-theme-yellow.bx-inclinkspersonal-selected{background:#fbb859}.btn-primary,.list-group-item.active{border-color:var(--theme-b-bd-primary);background-color:var(--theme-b-bg-primary);color:var(--theme-b-tx-primary)}.btn-primary:hover{border-color:var(--theme-b-bd-primary-hover);background-color:var(--theme-b-bg-primary-hover);color:var(--theme-b-tx-primary-hover)}.btn-primary:focus,.btn-primary.focus{box-shadow:0 0 0 .2rem var(--theme-b-sd-primary)}.btn-primary.disabled,.btn-primary:disabled{border-color:var(--theme-b-bg-primary);background-color:var(--theme-b-bg-primary);color:var(--theme-b-tx-primary)}.btn-primary:not(:disabled):not(.disabled):active,.btn-primary:not(:disabled):not(.disabled).active,.show>.btn-primary.dropdown-toggle{border-color:var(--theme-b-bd-primary-active);background-color:var(--theme-b-bg-primary-active);color:var(--theme-b-tx-primary-active)}.btn-primary:not(:disabled):not(.disabled):active:focus,.btn-primary:not(:disabled):not(.disabled).active:focus,.show>.btn-primary.dropdown-toggle:focus{box-shadow:0 0 0 .2rem var(--theme-b-sd-primary)}.form-control:focus{border-color:var(--theme-color-primary);box-shadow:0 0 0 .2rem var(--theme-b-sd-primary)}a,.btn-link{color:var(--theme-b-link)}a:hover,.btn-link:hover{color:var(--theme-b-link-hover)}.g-font-size-15{font-size:15px}.g-font-size-17{font-size:17px}.g-font-size-20{font-size:20px}.text-primary{color:var(--primary)!important}.bg-primary{background:var(--primary)!important}.border-primary{border-color:var(--primary)!important}.sidebar h2,.sidebar h3,.sidebar h4,.sidebar h5{text-transform:uppercase;font-size:14px;font-family:"OpenSans-SemiBold","Helvetica Neue",Helvetica,Arial,sans-serif}.sidebar li{font-size:12px;font-family:"OpenSans-SemiBold","Helvetica Neue",Helvetica,Arial,sans-serif}.sidebar-icon{width:27px;height:27px;margin-right:5px;border-radius:50%;background-color:var(--theme-color-primary);background-repeat:no-repeat;background-position:center}.sidebar-icon-label{background-image:url(images/label.svg);background-size:19px auto}.sidebar-icon-delivery{background-image:url(images/delivery.svg);background-size:17px auto}.sidebar-icon-sale{background-image:url(images/sale.svg);background-size:auto 17px}.sidebar-icon-self{background-image:url(images/self.svg);background-size:auto 17px}.sidebar-icon-phone{background-image:url(images/phone_white.svg);background-size:auto 21px}[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/variables.css b/local/php_interface/templates/main/variables.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..5a88f87[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/variables.css[m
+[36m@@ -0,0 +1,91 @@[m
+[32m+[m[32m.bx-yellow,[m
+[32m+[m[32m.bx-theme-yellow {[m
+[32m+[m	[32m--primary: #f9a91d;[m
+[32m+[m	[32m--theme-color-primary: #f9a91d;[m
+[32m+[m	[32m--theme-color-second: #faba4a;[m
+[32m+[m	[32m--theme-color-light: #f0f0f0;[m
+[32m+[m	[32m--theme-b-link: #f9a91d;[m
+[32m+[m	[32m--theme-b-link-hover: #faba4a;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #f9a91d;[m
+[32m+[m	[32m--theme-b-bd-primary: #f9a91d;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(249, 169, 29, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #faba4a;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #daa53e;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #faba4a;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #daa53e;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #daa53e;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #b7853b;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-blue,[m
+[32m+[m[32m.bx-theme-blue {[m
+[32m+[m	[32m--primary: #0083d1;[m
+[32m+[m	[32m--theme-color-primary: #0083d1;[m
+[32m+[m	[32m--theme-color-second: #5ca6e4;[m
+[32m+[m	[32m--theme-color-light: #f0f6f8;[m
+[32m+[m	[32m--theme-b-link: #44b1c9;[m
+[32m+[m	[32m--theme-b-link-hover: #5cc3d1;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #0083d1;[m
+[32m+[m	[32m--theme-b-bd-primary: #0083d1;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(0, 131, 209, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #5ca6e4;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #5599d2;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #5ca6e4;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #5599d2;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #5599d2;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #4d8bbf;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-red,[m
+[32m+[m[32m.bx-theme-red {[m
+[32m+[m	[32m--primary: #e22b2b;[m
+[32m+[m	[32m--theme-color-primary: #e22b2b;[m
+[32m+[m	[32m--theme-color-second: #e95c5c;[m
+[32m+[m	[32m--theme-color-light: #f0f0f0;[m
+[32m+[m	[32m--theme-b-link: #e22b2b;[m
+[32m+[m	[32m--theme-b-link-hover: #e95c5c;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #e22b2b;[m
+[32m+[m	[32m--theme-b-bd-primary: #e22b2b;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(226, 43, 43, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #e95c5c;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #d05454;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #e95c5c;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #d05454;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #d05454;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #c04e4e;[m
+[32m+[m[32m}[m
+[32m+[m
+[32m+[m[32m.bx-green,[m
+[32m+[m[32m.bx-theme-green {[m
+[32m+[m	[32m--primary: #63aa28;[m
+[32m+[m	[32m--theme-color-primary: #63aa28;[m
+[32m+[m	[32m--theme-color-second: #5b9f0b;[m
+[32m+[m	[32m--theme-color-light: #a8d95b;[m
+[32m+[m	[32m--theme-b-link: #44b1c9;[m
+[32m+[m	[32m--theme-b-link-hover: #5cc3d1;[m
+[32m+[m	[32m--theme-b-tx-primary: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary: #63aa28;[m
+[32m+[m	[32m--theme-b-bd-primary: #63aa28;[m
+[32m+[m	[32m--theme-b-sd-primary: rgba(99, 170, 40, 0.5);[m
+[32m+[m	[32m--theme-b-tx-primary-hover: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-hover: #5b9f0b;[m
+[32m+[m	[32m--theme-b-bd-primary-hover: #56940b;[m
+[32m+[m	[32m--theme-b-tx-primary-active: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-active: #5b9f0b;[m
+[32m+[m	[32m--theme-b-bd-primary-active: #56940b;[m
+[32m+[m	[32m--theme-b-tx-primary-disabled: #fff;[m
+[32m+[m	[32m--theme-b-bg-primary-disabled: #56940b;[m
+[32m+[m	[32m--theme-b-bd-primary-disabled: #497c09;[m
+[32m+[m[32m}[m
+\ No newline at end of file[m
+[1mdiff --git a/local/php_interface/templates/main/variables.min.css b/local/php_interface/templates/main/variables.min.css[m
+[1mnew file mode 100644[m
+[1mindex 0000000..ced6f71[m
+[1m--- /dev/null[m
+[1m+++ b/local/php_interface/templates/main/variables.min.css[m
+[36m@@ -0,0 +1 @@[m
+[32m+[m[32m.bx-yellow,.bx-theme-yellow{--primary:#f9a91d;--theme-color-primary:#f9a91d;--theme-color-second:#faba4a;--theme-color-light:#f0f0f0;--theme-b-link:#f9a91d;--theme-b-link-hover:#faba4a;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#f9a91d;--theme-b-bd-primary:#f9a91d;--theme-b-sd-primary:rgba(249,169,29,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#faba4a;--theme-b-bd-primary-hover:#daa53e;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#faba4a;--theme-b-bd-primary-active:#daa53e;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#daa53e;--theme-b-bd-primary-disabled:#b7853b}.bx-blue,.bx-theme-blue{--primary:#0083d1;--theme-color-primary:#0083d1;--theme-color-second:#5ca6e4;--theme-color-light:#f0f6f8;--theme-b-link:#44b1c9;--theme-b-link-hover:#5cc3d1;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#0083d1;--theme-b-bd-primary:#0083d1;--theme-b-sd-primary:rgba(0,131,209,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#5ca6e4;--theme-b-bd-primary-hover:#5599d2;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#5ca6e4;--theme-b-bd-primary-active:#5599d2;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#5599d2;--theme-b-bd-primary-disabled:#4d8bbf}.bx-red,.bx-theme-red{--primary:#e22b2b;--theme-color-primary:#e22b2b;--theme-color-second:#e95c5c;--theme-color-light:#f0f0f0;--theme-b-link:#e22b2b;--theme-b-link-hover:#e95c5c;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#e22b2b;--theme-b-bd-primary:#e22b2b;--theme-b-sd-primary:rgba(226,43,43,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#e95c5c;--theme-b-bd-primary-hover:#d05454;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#e95c5c;--theme-b-bd-primary-active:#d05454;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#d05454;--theme-b-bd-primary-disabled:#c04e4e}.bx-green,.bx-theme-green{--primary:#63aa28;--theme-color-primary:#63aa28;--theme-color-second:#5b9f0b;--theme-color-light:#a8d95b;--theme-b-link:#44b1c9;--theme-b-link-hover:#5cc3d1;--theme-b-tx-primary:#fff;--theme-b-bg-primary:#63aa28;--theme-b-bd-primary:#63aa28;--theme-b-sd-primary:rgba(99,170,40,0.5);--theme-b-tx-primary-hover:#fff;--theme-b-bg-primary-hover:#5b9f0b;--theme-b-bd-primary-hover:#56940b;--theme-b-tx-primary-active:#fff;--theme-b-bg-primary-active:#5b9f0b;--theme-b-bd-primary-active:#56940b;--theme-b-tx-primary-disabled:#fff;--theme-b-bg-primary-disabled:#56940b;--theme-b-bd-primary-disabled:#497c09}[m
+\ No newline at end of file[m
