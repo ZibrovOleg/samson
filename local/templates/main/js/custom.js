@@ -87,4 +87,32 @@ $(function() {
 	addGoodsForm();
 	removeGoodsForm();
 
+	/*
+	 * add goods in basket by xml_id
+	 */ 
+	$('.form-multiple').on('submit', function(e) {
+		e.preventDefault();
+
+		let formSerialize = $(this).serializeArray();
+			formData = {
+				'sessid': BX.bitrix_sessid(),
+				'xml_id': []
+			};
+
+		$(formSerialize).each(function(index, data) {
+			if (data.value)
+				formData.xml_id.push(data.value);
+		});
+
+		$.ajax({
+			type: 'POST',
+			url: '/local/ajax/add_goods_by_basket.php',
+			data: formData,
+			success: function(data) {
+				document.location.href = location;
+			},
+			error: function (jqXHR, exception) {}
+		});
+	});
+	
 });
