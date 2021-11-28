@@ -207,14 +207,14 @@ $curPage = $APPLICATION->GetCurPage(true);
 
 			<?if($APPLICATION->GetCurPage(false) === '/personal/cart/'):?>
 				<button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg" style="margin-bottom: 10px;">
-					Множественные добавление
+					Множественное добавление
 				</button>
 
 				<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
 							<div class="modal-header">
-								<h4 class="modal-title" id="myModalLabel">Множественные добавление товаров по XML_ID</h4>
+								<h4 class="modal-title" id="myModalLabel">Множественное добавление товаров по XML_ID</h4>
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span>
 								</button>
